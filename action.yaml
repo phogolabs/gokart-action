@@ -1,23 +1,24 @@
 name: "GoKart Scanner"
-description: "Scan your code with GoKart to finds vulnerabilities using the SSA (single static assignment) form of Go source code."
-author: "Dwi Siswanto"
+description: "Scan your Golang code for vulnerabilities with GoKart"
 
 branding:
   icon: "check"
   color: "green"
+
+author: "Svetlin Ralchev"
 
 runs:
   using: "docker"
   image: "Dockerfile"
 
 inputs:
+  config:
+    description: "input path to custom yml file"
+    required: false
   directory:
     description: "scan on a Go module in the directory"
     required: false
     default: "."
-  input:
-    description: "input path to custom yml file"
-    required: false
   output:
     description: "file path to write findings output"
     required: true
@@ -33,4 +34,7 @@ inputs:
     required: false
   verbose:
     description: "outputs full trace of taint analysis"
+    required: false
+  github_token:
+    description: "github personal access token"
     required: false
