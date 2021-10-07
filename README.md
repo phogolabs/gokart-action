@@ -27,12 +27,11 @@ jobs:
       security-events: write
 
     steps:
-    - name: Checkout the code
+    - name: Checkout
       uses: actions/checkout@v2
 
     - name: Run GoKart
-      uses: phogolabs/gokart-action@v1.0.1
-      with: { globalsTainted: true }
+      uses: phogolabs/gokart-action@v2.0.0
 ```
 
 ## References

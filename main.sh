@@ -39,6 +39,4 @@ INPUT_DIRECTORY=${INPUT_DIRECTORY:-$PWD}
 INPUT_COMMAND="gokart scan ${INPUT_DIRECTORY} -x ${INPUT_PARAM}"
 
 # evaluate the command
-if ! eval "${INPUT_COMMAND}"; then
-	echo "gokart violations are identified..."
-fi
+eval "${INPUT_COMMAND}"
