@@ -2,6 +2,10 @@
 
 set -e
 
+if [ -n "${GITHUB_WORKSPACE}" ]; then
+  cd "${GITHUB_WORKSPACE}" || exit
+fi
+
 export INPUT COMMAND
 export INPUT_PARAM
 
