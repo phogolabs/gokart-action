@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -x
+set -e
 
 export INPUT COMMAND
 export INPUT_PARAM
