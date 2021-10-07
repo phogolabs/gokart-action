@@ -18,8 +18,8 @@ ADD https://github.com/praetorian-inc/gokart/releases/download/v${GOKART_VERSION
 # unpack the package
 RUN tar -xzf /tmp/gokart.tar.gz -C /bin && rm /tmp/gokart.tar.gz && chmod +x /bin/gokart
 # enable the entry point
-COPY main.sh /bin/main
+COPY main.sh /usr/bin/main
 # make sure that the entry point has the correct attributes
-RUN chmod +x /bin/main
+RUN chmod +x /usr/bin/main
 
-ENTRYPOINT ["main"]
+ENTRYPOINT ["/usr/bin/main"]

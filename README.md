@@ -7,7 +7,7 @@ Scan your Golang code for vulnerabilities with GoKart.
 The workflow, usually declared in `.github/workflows/gokart.yaml` under your Go project repository, looks like:
 
 ```yaml
-name: GokArt
+name: gokart
 
 on:
   push:
@@ -19,7 +19,7 @@ on:
 
 jobs:
   gokart:
-    name: GoKart scanner
+    name: gokart scanner
     runs-on: ubuntu-latest
 
     permissions:
