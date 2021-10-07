@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -axe
+set -x
 
 export INPUT COMMAND
 export INPUT_PARAM
@@ -29,11 +29,16 @@ if [[ -n ${INPUT_CONFIG} ]]; then
 	INPUT_PARAM+=" -i ${INPUT_CONFIG}"
 fi
 
+if [[ -n ${INPUT_OUTPUT} ]]; then
+	INPUT_PARAM+=" -s -i ${INPUT_OUTPUT}"
+fi
+
 INPUT_DIRECTORY=${INPUT_DIRECTORY:-$PWD}
-INPUT_OUTPUT=${INPUT_OUTPUT:-results}
 
 # format the command according to the provided arguments
-INPUT_COMMAND="gokart scan ${INPUT_DIRECTORY} -x -s -o ${INPUT_OUTPUT} ${INPUT_PARAM}"
+INPUT_COMMAND="gokart scan ${INPUT_DIRECTORY} -x ${INPUT_PARAM}"
 
 # evaluate the command
-eval "${INPUT_COMMAND}"
+if ! eval "${INPUT_COMMAND}"; then
+	echo "gokart violations are identified..."
+fi

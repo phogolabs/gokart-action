@@ -1,13 +1,13 @@
-# GoKart Action
+# gokart-action
 
-Scan your Golang code for vulnerabilities with GoKart
+Scan your Golang code for vulnerabilities with GoKart.
 
 ## Usage
 
 The workflow, usually declared in `.github/workflows/gokart.yaml` under your Go project repository, looks like:
 
 ```yaml
-name: GoKart
+name: GokArt
 
 on:
   push:
@@ -21,6 +21,7 @@ jobs:
   gokart:
     name: GoKart scanner
     runs-on: ubuntu-latest
+
     permissions:
       contents: read
       security-events: write
@@ -30,7 +31,7 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Run GoKart
-      uses: phogolabs/gokart-action@v1.0.0
+      uses: phogolabs/gokart-action@v1.0.1
       with: { globalsTainted: true }
 ```
 

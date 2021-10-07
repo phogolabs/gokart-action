@@ -21,8 +21,7 @@ inputs:
     default: "."
   output:
     description: "file path to write findings output"
-    required: true
-    default: "results"
+    required: false
   globalsTainted:
     description: "marks global variables as dangerous"
     required: false
