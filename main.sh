@@ -6,41 +6,36 @@ if [ -n "${GITHUB_WORKSPACE}" ]; then
   cd "${GITHUB_WORKSPACE}" || exit
 fi
 
-export INPUT COMMAND
-export INPUT_PARAM
-
 if [[ -n ${INPUT_GITHUB_TOKEN} ]]; then
-	git config --global url."https://${INPUT_GITHUB_TOKEN}:x-oauth-basic@github.com/".insteadOf "https://github.com/"
+  echo "::debug::Using GitHub token"
+  git config --global url."https://${INPUT_GITHUB_TOKEN}:x-oauth-basic@github.com/".insteadOf "https://github.com/"
 fi
 
-if [[ -n ${INPUT_DEBUG} ]]; then
-	INPUT_PARAM+=" -d"
+CONFIG_FILE_OPTION="-x"
+
+if [[ -n ${INPUT_REPORT_FILE} ]]; then
+  echo "::debug::Using report file ${INPUT_REPORT_FILE}"
+  CONFIG_FILE_OPTION="--output ${INPUT_REPORT_FILE}"
 fi
 
-if [[ -n ${INPUT_VERBOSE} ]]; then
-	INPUT_PARAM+=" -v"
+if [[ -n ${INPUT_REPORT_FORMAT} ]]; then
+  echo "::debug::Using report format ${INPUT_REPORT_FORMAT}"
+  CONFIG_FILE_OPTION+=" --${INPUT_REPORT_FORMAT}"
 fi
 
-if [[ -n ${INPUT_GLOBALSTAINTED} ]]; then
-	INPUT_PARAM+=" -g"
+if [ -n "${INPUT_CONFIG_FILE}" ]; then
+  echo "::debug::Using config file ${INPUT_CONFIG_FILE}"
+  CONFIG_FILE_OPTION+=" --input ${INPUT_CONFIG_FILE}"
 fi
 
-if [[ -n ${INPUT_REMOTEMODULE} ]]; then
-	INPUT_PARAM+=" -r ${INPUT_REMOTEMODULE}"
+if [ -n "${INPUT_GOKART_ARGS}" ]; then
+  echo "::debug::Using specified args: ${INPUT_GOKART_ARGS}"
+  CONFIG_FILE_OPTION+=" ${INPUT_GOKART_ARGS}"
 fi
-
-if [[ -n ${INPUT_CONFIG} ]]; then
-	INPUT_PARAM+=" -i ${INPUT_CONFIG}"
-fi
-
-if [[ -n ${INPUT_OUTPUT} ]]; then
-	INPUT_PARAM+=" -s -i ${INPUT_OUTPUT}"
-fi
-
-INPUT_DIRECTORY=${INPUT_DIRECTORY:-$PWD}
 
 # format the command according to the provided arguments
-INPUT_COMMAND="gokart scan ${INPUT_DIRECTORY} -x ${INPUT_PARAM}"
+gokart scan "${INPUT_WORKING_DIRECTORY}" ${CONFIG_FILE_OPTION}
 
-# evaluate the command
-eval "${INPUT_COMMAND}"
+gokart_return="${PIPESTATUS[0]}"
+
+echo ::set-output name=gokart-return-code::"${gokart_return}"

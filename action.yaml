@@ -12,29 +12,26 @@ runs:
   image: "Dockerfile"
 
 inputs:
-  config:
-    description: "input path to custom yml file"
+  working_directory:
+    description: "Directory to run the action on, from the repo root."
+    default: '.'
+  config_file:
+    description: "The path to the config file."
     default: "/etc/gokart.yaml"
     required: false
-  directory:
-    description: "scan on a Go module in the directory"
+  report_file:
+    description: "The path to write the report."
     required: false
-    default: "."
-  output:
-    description: "file path to write findings output"
+  report_format:
+    description: "The report format (json, sarif)."
     required: false
-  globalsTainted:
-    description: "marks global variables as dangerous"
-    required: false
-  remoteModule:
-    description: "Remote gomodule to scan"
-    required: false
-  debug:
-    description: "outputs debug logs"
-    required: false
-  verbose:
-    description: "outputs full trace of taint analysis"
+  gokart_args:
+    description: "Space seperated args specified here will be added during gokart execution."
     required: false
   github_token:
     description: "github personal access token"
     required: false
+
+outputs:
+  gokart-return-code:
+    description: 'gokart command return code'
