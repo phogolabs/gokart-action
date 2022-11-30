@@ -16,7 +16,7 @@ LABEL org.opencontainers.image.description=$APP_DESCRIPTION
 LABEL org.opencontainers.image.source=$APP_SOURCE
 
 # add the required packages
-RUN apk add --no-cache bash=5.1.4-r0 findutils=4.8.0-r1 git=2.32.0-r0 go=1.16.10-r0
+RUN apk add --no-cache bash=5.1.16-r0 findutils=4.8.0-r1 git=2.32.4-r0 go=1.16.15-r0
 # download gokart
 ADD https://github.com/praetorian-inc/gokart/releases/download/v${APP_VERSION}/gokart_${APP_VERSION}_linux_x86_64.tar.gz /tmp/gokart.tar.gz
 # unpack the package
