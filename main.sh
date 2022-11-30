@@ -33,9 +33,10 @@ if [ -n "${INPUT_GOKART_ARGS}" ]; then
   CONFIG_FILE_OPTION+=" ${INPUT_GOKART_ARGS}"
 fi
 
-# format the command according to the provided arguments
+
+# shellcheck disable=SC2086
 gokart scan "${INPUT_WORKING_DIRECTORY}" ${CONFIG_FILE_OPTION}
 
 gokart_return="${PIPESTATUS[0]}"
 
-echo ::set-output name=gokart-return-code::"${gokart_return}"
+echo "go-kart-return-code=${gokart_return}" >> "$GITHUB_OUTPUT"
